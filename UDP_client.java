@@ -9,16 +9,15 @@ class UDP_client {
     public static void main(String args[]) throws Exception {
         BufferedReader inFromUser = new BufferedReader(new InputStreamReader(System.in));
         DatagramSocket clientSocket = new DatagramSocket();
-        byte[] sendData = new byte[1024];
+        Baby baby = new Baby("Enot",true,"lol",23232323);
+        byte[] sendData = Serializer.serialize(baby);
         byte[] receiveData = new byte[1024];
-        String sentence = inFromUser.readLine();
-        sendData = sentence.getBytes();
         DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, InetAddress.getByName("localhost"), 9876);
         clientSocket.send(sendPacket);
         DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
         clientSocket.receive(receivePacket);
-        String modifiedSentence = new String(receivePacket.getData());
-        System.out.println("FROM SERVER:" + modifiedSentence);
+        Baby baby2 = Serializer.deserialize(receivePacket.getData());
+        System.out.println("FROM SERVER:" + baby2.getName() + " " + baby2.getSex());
         clientSocket.close();
     }
 }

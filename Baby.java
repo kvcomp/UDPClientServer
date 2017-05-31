@@ -1,4 +1,6 @@
-public class Baby implements Walker, Watcher {
+import java.io.Serializable;
+
+public class Baby implements Walker, Watcher, Serializable {
 	protected String Name;
 	protected Boolean Free;
 	protected String Sex;
@@ -33,7 +35,7 @@ public class Baby implements Walker, Watcher {
 	}
 
 	public String getSex() {
-		return Sex;
+		return this.Sex;
 	}	
 
 	@Override
