@@ -12,16 +12,16 @@ class UDP_server {
         DatagramSocket serverSocket = new DatagramSocket(9876);
         byte[] receiveData = new byte[1024];
         byte[] sendData = new byte[1024];
-        LinkedList<Baby> test = new LinkedList<Baby>();
+        /*LinkedList<Baby> test = new LinkedList<Baby>();
         test.add(new Baby("lolek",true,"doubt",234));
         test.add(new Baby("golek", false, "meeen", 324234));
         test.add(new Baby("gosdflek", false, "meesdfsdfen", 324223434));
-        Sql.setValues(test);
+        Sql.setValues(test);*/
         while (true) {
             DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
             serverSocket.receive(receivePacket);
-            Baby sentence = Serializer.deserialize(receivePacket.getData());
-            System.out.println("RECEIVED: " + sentence.getName() + " " + sentence.getSex());
+            BabyPackage sentence = Serializer.deserialize(receivePacket.getData());
+            System.out.println("RECEIVED: " + sentence.getBaby().getName() + " " + sentence.getBaby().getSex());
             InetAddress IPAddress = receivePacket.getAddress();
             int port = receivePacket.getPort();
             sendData = Serializer.serialize(sentence);

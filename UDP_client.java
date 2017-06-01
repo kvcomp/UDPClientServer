@@ -7,7 +7,6 @@ import java.net.*;
 
 class UDP_client {
     public static void main(String args[]) throws Exception {
-        BufferedReader inFromUser = new BufferedReader(new InputStreamReader(System.in));
         DatagramSocket clientSocket = new DatagramSocket();
         Baby baby = new Baby("Enot",true,"lol",23232323);
         byte[] sendData = Serializer.serialize(baby);
@@ -16,8 +15,8 @@ class UDP_client {
         clientSocket.send(sendPacket);
         DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
         clientSocket.receive(receivePacket);
-        Baby baby2 = Serializer.deserialize(receivePacket.getData());
-        System.out.println("FROM SERVER:" + baby2.getName() + " " + baby2.getSex());
+        BabyPackage baby2 = Serializer.deserialize(receivePacket.getData());
+        System.out.println("FROM SERVER:" + baby2.getBaby().getName() + " " + baby2.getBaby().getSex());
         clientSocket.close();
     }
 }

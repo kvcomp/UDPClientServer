@@ -19,16 +19,16 @@ public class Serializer {
         return new byte[1024];
     }
 
-    public static Baby deserialize(byte[] bytes) {
-        Baby object;
+    public static BabyPackage deserialize(byte[] bytes) {
+        BabyPackage object;
         try {
             ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(bytes));
-            object = (Baby) ois.readObject();
+            object = (BabyPackage) ois.readObject();
             return object;
         } catch(Exception ex){
             System.out.println(ex.getMessage());
         }
-        return new Baby("",false,"",0);
+        return new BabyPackage(0, null, null, null);
     }
 
 }
